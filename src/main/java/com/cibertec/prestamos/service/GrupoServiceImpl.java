@@ -1,9 +1,11 @@
 package com.cibertec.prestamos.service;
 
 import com.cibertec.prestamos.domain.model.Grupo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class GrupoServiceImpl implements IGrupoService{
     @Override
     public List<Grupo> obtenerTodosLosGrupos() {

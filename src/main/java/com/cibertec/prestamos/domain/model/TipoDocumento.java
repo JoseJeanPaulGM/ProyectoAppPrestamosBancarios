@@ -23,19 +23,4 @@ public class TipoDocumento {
 
     @Column(name = "estado", nullable = false)
     private int estado;
-
-    @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCreacion;
-
-    @Column(name = "usuario_creacion")
-    private String usuarioCreacion;
-
-    @Column(name = "usuario_modificacion")
-    private String usuarioModificacion;
-
-    @Column(name = "fecha_modificacion")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaModificacion;
-
 }

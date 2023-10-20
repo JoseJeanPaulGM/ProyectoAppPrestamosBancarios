@@ -9,17 +9,10 @@ import java.util.Optional;
 public interface IUsuarioService {
     List<Usuario> obtenerTodosLosUsuarios();
 
-    Usuario obtenerUsuarioPorId(int id);
     Usuario guardarUsuario(Usuario usuario);
 
-    void eliminarUsuario(int id);
+    Optional<Usuario> obtenerUsuarioPorEmail(String email);
 
-    void cambiarEstadoUsuario(int usuarioId,int estado);
-
-    String generarUsernameUnico(String nombre, String apellido);
-
-    Optional<Usuario> obtenerUsuarioPorUsername(String username);
-
-
+    Optional<Usuario> obtenerUsuarioPorId(int idUsuario);
 
 }

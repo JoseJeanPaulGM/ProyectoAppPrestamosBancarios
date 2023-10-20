@@ -1,7 +1,7 @@
 package com.cibertec.prestamos.service;
 
 import com.cibertec.prestamos.domain.model.Persona;
-import com.cibertec.prestamos.domain.model.repository.IPersonaRepository;
+import com.cibertec.prestamos.domain.repository.IPersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

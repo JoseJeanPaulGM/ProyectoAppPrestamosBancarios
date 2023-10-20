@@ -6,21 +6,42 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "medio_pago")
+@Table(name = "persona")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedioPago {
+public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_medio_pago")
-    private int idMedioPago;
+    @Column(name = "id_persona")
+    private int idPersona;
 
-    @Column(name = "descripcion", nullable = false)
-    private String descripcion;
+    @Column(name = "nombres", nullable = false)
+    private String nombres;
+
+    @Column(name = "apellido_paterno", nullable = false)
+    private String apellidoPaterno;
+
+    @Column(name = "apellido_materno", nullable = false)
+    private String apellidoMaterno;
+
+    @Column(name = "numero_documento", nullable = false)
+    private String numeroDocumento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_documento")
+    private TipoDocumento tipoDocumento;
+
+    @Column(name = "direccion")
+    private String direccion;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "telefono")
+    private String telefono;
 
     @Column(name = "estado", nullable = false)
     private int estado;
@@ -39,3 +60,4 @@ public class MedioPago {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 }
+
