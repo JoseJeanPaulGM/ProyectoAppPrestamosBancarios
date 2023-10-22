@@ -30,10 +30,12 @@ public class PerfilController {
     @GetMapping(path = "/listar")
     public ResponseEntity<Response> listar() {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(perfilService.obtenerTodosLosPerfiles(), "Lista de perfiles."));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Response(perfilService.obtenerTodosLosPerfiles(), "Lista de perfiles."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar los perfiles."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al listar los perfiles."));
         }
     }
 
@@ -64,12 +66,10 @@ public class PerfilController {
 
             return ResponseEntity.status(HttpStatus.OK).body(new Response(result, "Perfil registrado correctamente."));
 
-
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al registrar el perfil."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al registrar el perfil."));
         }
     }
-
-
 }

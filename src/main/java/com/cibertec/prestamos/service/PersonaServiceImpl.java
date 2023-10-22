@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersonaServiceImpl implements IPersonaService{
+public class PersonaServiceImpl implements IPersonaService {
 
     @Autowired
     private IPersonaRepository personaRepository;
@@ -21,7 +21,7 @@ public class PersonaServiceImpl implements IPersonaService{
 
     @Override
     public Optional<Persona> obtenerPersonaPorId(int id) {
-        return personaRepository.findById(id)   ;
+        return personaRepository.findById(id);
     }
 
     @Override

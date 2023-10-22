@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmpleadoRequestDto {
 
-    public  PersonaDto persona;
+    public PersonaDto persona;
     public String email;
     public String contrasena;
     public int idPerfil;

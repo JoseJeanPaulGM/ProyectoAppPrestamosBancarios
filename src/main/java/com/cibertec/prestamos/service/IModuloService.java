@@ -12,7 +12,6 @@ public interface IModuloService {
 
     Modulo obtenerModuloPorId(int idModulo);
 
-
     void eliminarModulo(int idModulo);
 
 }

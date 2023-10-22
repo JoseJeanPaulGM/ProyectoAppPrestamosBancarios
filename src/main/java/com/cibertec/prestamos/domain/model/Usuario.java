@@ -59,5 +59,4 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     @JsonManagedReference
     private List<GrupoPrestamista> grupoPrestamistas;
-
 }

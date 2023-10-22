@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ModuloServiceImpl implements IModuloService{
+public class ModuloServiceImpl implements IModuloService {
 
     @Autowired
     private IModuloRepository moduloRepository;
 
     @Override
-    public Modulo guardarModulo( Modulo modulo) {
-        return  moduloRepository.save(modulo);
+    public Modulo guardarModulo(Modulo modulo) {
+        return moduloRepository.save(modulo);
     }
 
     @Override

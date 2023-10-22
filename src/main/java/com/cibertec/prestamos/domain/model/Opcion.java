@@ -21,10 +21,8 @@ public class Opcion {
     @Column(name = "id_opcion")
     private int idOpcion;
 
-    @ManyToOne
-    @JoinColumn(name = "id_modulo")
-    @JsonBackReference
-    private Modulo modulo;
+    @Column(name = "id_padre", nullable = false)
+    private int idPadre;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;

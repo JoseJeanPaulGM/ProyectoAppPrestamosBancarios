@@ -15,4 +15,3 @@ public interface IOpcionService {
 
     void eliminarOpcion(int id);
 }
-
