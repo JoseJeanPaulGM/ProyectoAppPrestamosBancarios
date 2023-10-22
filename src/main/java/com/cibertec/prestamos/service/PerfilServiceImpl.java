@@ -1,27 +1,35 @@
 package com.cibertec.prestamos.service;
 
 import com.cibertec.prestamos.domain.model.Perfil;
+import com.cibertec.prestamos.domain.repository.IPerfilRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class PerfilServiceImpl implements IPerfilService{
+@Service
+public class PerfilServiceImpl implements IPerfilService {
+
+    @Autowired
+    private IPerfilRepository perfilRepository;
+
     @Override
     public List<Perfil> obtenerTodosLosPerfiles() {
-        return null;
+        return perfilRepository.findAll();
     }
 
     @Override
     public Perfil obtenerPerfilPorId(int id) {
-        return null;
+        return perfilRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void guardarPerfil(Perfil perfil) {
-
+    public Perfil guardarPerfil(Perfil perfil) {
+        return perfilRepository.save(perfil);
     }
 
     @Override
     public void eliminarPerfil(int id) {
-
+        perfilRepository.deleteById(id);
     }
 }
