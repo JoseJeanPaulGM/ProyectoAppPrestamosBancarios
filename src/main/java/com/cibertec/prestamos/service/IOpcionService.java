@@ -9,7 +9,9 @@ public interface IOpcionService {
 
     Opcion obtenerOpcionPorId(int id);
 
-    void guardarOpcion(Opcion opcion);
+    List<Opcion> obtenerOpcionesPorModulo(int idModulo);
+
+    Opcion guardarOpcion(Opcion opcion);
 
     void eliminarOpcion(int id);
 }

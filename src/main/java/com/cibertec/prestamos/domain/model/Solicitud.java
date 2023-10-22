@@ -23,14 +23,12 @@ public class Solicitud {
     private int idSolicitud;
 
     @ManyToOne
-    @JoinColumn(name = "id_prestatario")
+    @JoinColumn(name = "id_usuario")
     @JsonBackReference
     private Usuario prestatario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_prestamista")
-    @JsonBackReference
-    private Usuario prestamista;
+    @Column(name = "id_prestamista", nullable = false)
+    private int idPrestamista;
 
     @Column(name = "monto", precision = 10, scale = 2, nullable = false, columnDefinition = "Decimal(10,2)")
     private BigDecimal monto;
@@ -58,10 +56,5 @@ public class Solicitud {
 
     @Column(name = "fecha_modificacion")
     private Date fechaModificacion;
-
-    @OneToOne
-    @JoinColumn(name = "id_prestamo")
-    @JsonManagedReference
-    private Prestamo prestamo;
 
 }

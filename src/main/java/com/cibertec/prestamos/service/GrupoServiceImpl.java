@@ -1,29 +1,37 @@
 package com.cibertec.prestamos.service;
 
 import com.cibertec.prestamos.domain.model.Grupo;
+import com.cibertec.prestamos.domain.repository.IGrupoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class GrupoServiceImpl implements IGrupoService{
+public class GrupoServiceImpl implements IGrupoService {
+
+    @Autowired
+    private IGrupoRepository grupoRepository;
+
+
     @Override
     public List<Grupo> obtenerTodosLosGrupos() {
-        return null;
+        return grupoRepository.findAll();
     }
 
     @Override
-    public Grupo obtenerGrupoPorId(int id) {
-        return null;
+    public Optional<Grupo> obtenerGrupoPorId(int id) {
+        return grupoRepository.findById(id);
     }
 
     @Override
-    public void guardarGrupo(Grupo grupo) {
-
+    public Grupo guardarGrupo(Grupo grupo) {
+        return grupoRepository.save(grupo);
     }
 
     @Override
-    public void eliminarGrupo(int id) {
-
+    public void eliminarGrupo(Grupo grupo) {
+        grupoRepository.delete(grupo);
     }
 }

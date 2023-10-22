@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface IPersonaRepository extends JpaRepository<Persona, Integer> {
     // Puedes agregar métodos personalizados aquí si es necesario
     Optional<Persona> findByEmail(String email);
+
+    Optional<Persona> findByNumeroDocumento(String dni);
 }

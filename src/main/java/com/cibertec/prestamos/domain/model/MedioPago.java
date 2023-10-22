@@ -3,10 +3,8 @@ package com.cibertec.prestamos.domain.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import jakarta.persistence.*;
-import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "medio_pago")

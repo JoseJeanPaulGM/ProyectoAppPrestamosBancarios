@@ -23,14 +23,15 @@ public class Prestamo {
     @Column(name = "id_prestamo")
     private int idPrestamo;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_solicitud")
-    @JsonBackReference
     private Solicitud solicitud;
 
-    @ManyToOne
-    @JoinColumn(name = "id_prestamista")
-    private Usuario prestamista;
+    @Column(name = "id_prestamista", nullable = false)
+    private int idPrestamista;
+
+    @Column(name = "id_prestatario", nullable = false)
+    private int idPrestatario;
 
     @Column(name = "monto_total", precision = 10, scale = 2, nullable = false, columnDefinition = "Decimal(10,2)")
     private BigDecimal montoTotal;

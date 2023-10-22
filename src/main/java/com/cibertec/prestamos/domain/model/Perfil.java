@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Date;
 import java.util.List;
@@ -42,12 +44,8 @@ public class Perfil {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
-    @OneToMany(mappedBy = "perfil")
-    @JsonBackReference
-    private List<Usuario> usuarios;
-
-    @OneToMany(mappedBy = "perfil")
+    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true )
     @JsonManagedReference
-    private List<PerfilOpcion> perfilOpciones;
+    private List<PerfilModulo> perfilModulos;
 
 }

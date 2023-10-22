@@ -1,5 +1,6 @@
 package com.cibertec.prestamos.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,9 @@ public class Grupo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grupo")
     private int idGrupo;
+
+    @Column(name = "id_jefe_prestamista")
+    private int idJefePrestamista;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
@@ -39,11 +43,8 @@ public class Grupo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
-    @OneToOne
-    @JoinColumn(name = "id_jefe_prestamistas")
-    private Usuario jefePrestamistas;
-
     @OneToMany(mappedBy = "grupo")
+    @JsonManagedReference
     private List<GrupoPrestamista> grupoPrestamistas;
 
 }

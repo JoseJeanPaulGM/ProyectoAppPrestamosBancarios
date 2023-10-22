@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteRequestDto {
+public class EmpleadoRequestDto {
 
     public  PersonaDto persona;
     public String email;
@@ -15,4 +15,6 @@ public class ClienteRequestDto {
     public int idPerfil;
     public int estado;
     public String usuarioCreacion;
+    public GrupoDto grupo;
+
 }

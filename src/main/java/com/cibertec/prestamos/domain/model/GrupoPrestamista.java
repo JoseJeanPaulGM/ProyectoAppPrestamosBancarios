@@ -1,5 +1,6 @@
 package com.cibertec.prestamos.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,13 +19,19 @@ public class GrupoPrestamista {
     @Column(name = "id_grupo_prestamista")
     private int idGrupoPrestamista;
 
-    @ManyToOne
-    @JoinColumn(name = "id_prestamista")
-    private Usuario prestamista;
+//    @Column(name = "id_prestamista")
+//    private int idPrestamista;
 
     @ManyToOne
     @JoinColumn(name = "id_grupo")
+    @JsonBackReference
     private Grupo grupo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_prestamista")
+    @JsonBackReference
+    private Usuario usuario;
+
 
     @Column(name = "estado", nullable = false)
     private int estado;

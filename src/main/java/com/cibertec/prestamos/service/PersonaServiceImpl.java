@@ -16,17 +16,17 @@ public class PersonaServiceImpl implements IPersonaService{
 
     @Override
     public List<Persona> obtenerTodasLasPersonas() {
-        return null;
+        return personaRepository.findAll();
     }
 
     @Override
     public Optional<Persona> obtenerPersonaPorId(int id) {
-        return null;
+        return personaRepository.findById(id)   ;
     }
 
     @Override
-    public void guardarPersona(Persona persona) {
-
+    public Persona guardarPersona(Persona persona) {
+        return personaRepository.save(persona);
     }
 
     @Override
@@ -37,5 +37,10 @@ public class PersonaServiceImpl implements IPersonaService{
     @Override
     public Optional<Persona> obtenerPersonaPorEmail(String email) {
         return personaRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<Persona> obtenerPersonaPorDni(String dni) {
+        return personaRepository.findByNumeroDocumento(dni);
     }
 }

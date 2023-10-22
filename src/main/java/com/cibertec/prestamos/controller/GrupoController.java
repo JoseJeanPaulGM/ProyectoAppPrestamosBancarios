@@ -1,6 +1,5 @@
 package com.cibertec.prestamos.controller;
 
-import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.util.AppSettings;
 import com.cibertec.prestamos.util.Response;
 import org.slf4j.Logger;
@@ -32,47 +31,5 @@ public class GrupoController {
         }
     }
 
-    @PostMapping(path = "/guardar")
-    public ResponseEntity<Response> guardar(@RequestBody Grupo grupo) {
-        try {
-            grupoService.guardarGrupo(grupo);
-            return ResponseEntity.status(HttpStatus.OK).body(new Response("Grupo guardado correctamente."));
-        } catch (Exception e) {
-            log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al guardar el grupo."));
-        }
-    }
-
-    @DeleteMapping(path = "/eliminar/{id}")
-    public ResponseEntity<Response> eliminar(@PathVariable("id") int id) {
-        try {
-            grupoService.eliminarGrupo(id);
-            return ResponseEntity.status(HttpStatus.OK).body(new Response("Grupo eliminado correctamente."));
-        } catch (Exception e) {
-            log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al eliminar el grupo."));
-        }
-    }
-
-    @GetMapping(path = "/obtener/{id}")
-    public ResponseEntity<Response> obtener(@PathVariable("id") int id) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(grupoService.obtenerGrupoPorId(id), "Grupo obtenido correctamente."));
-        } catch (Exception e) {
-            log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al obtener el grupo."));
-        }
-    }
-
-    @PutMapping(path = "/actualizar")
-    public ResponseEntity<Response> actualizar(@RequestBody Grupo grupo) {
-        try {
-            grupoService.guardarGrupo(grupo);
-            return ResponseEntity.status(HttpStatus.OK).body(new Response("Grupo actualizado correctamente."));
-        } catch (Exception e) {
-            log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar el grupo."));
-        }
-    }
 
 }

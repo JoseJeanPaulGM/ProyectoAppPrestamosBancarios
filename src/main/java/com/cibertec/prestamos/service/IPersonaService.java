@@ -10,9 +10,11 @@ public interface IPersonaService {
 
     Optional<Persona> obtenerPersonaPorId(int id);
 
-    void guardarPersona(Persona persona);
+    Persona guardarPersona(Persona persona);
 
     void eliminarPersona(int id);
 
     Optional<Persona> obtenerPersonaPorEmail(String email);
+
+    Optional<Persona> obtenerPersonaPorDni(String dni);
 }

@@ -3,14 +3,15 @@ package com.cibertec.prestamos.service;
 import com.cibertec.prestamos.domain.model.Grupo;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IGrupoService {
     List<Grupo> obtenerTodosLosGrupos();
 
-    Grupo obtenerGrupoPorId(int id);
+    Optional<Grupo> obtenerGrupoPorId(int id);
 
-    void guardarGrupo(Grupo grupo);
+    Grupo guardarGrupo(Grupo grupo);
 
-    void eliminarGrupo(int id);
+    void eliminarGrupo(Grupo grupo);
 }
 

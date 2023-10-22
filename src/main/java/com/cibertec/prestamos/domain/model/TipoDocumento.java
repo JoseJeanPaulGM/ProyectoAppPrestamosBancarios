@@ -16,10 +16,15 @@ import java.util.List;
 public class TipoDocumento {
     @Id
     @Column(name = "id_documento")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idDocumento;
+
+    @Column(name = "valor", nullable = false)
+    private String valor;
 
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
 
     @Column(name = "estado", nullable = false)
     private int estado;

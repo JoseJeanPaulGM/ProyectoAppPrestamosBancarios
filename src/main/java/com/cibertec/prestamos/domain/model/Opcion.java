@@ -1,5 +1,6 @@
 package com.cibertec.prestamos.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,11 +21,13 @@ public class Opcion {
     @Column(name = "id_opcion")
     private int idOpcion;
 
-    @Column(name = "id_padre", nullable = false)
-    private int idPadre;
+    @ManyToOne
+    @JoinColumn(name = "id_modulo")
+    @JsonBackReference
+    private Modulo modulo;
 
-    @Column(name = "opcion_padre", nullable = false)
-    private String opcionPadre;
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
 
     @Column(name = "url", nullable = false)
     private String url;
@@ -45,9 +48,5 @@ public class Opcion {
     @Column(name = "fecha_modificacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
-
-    @OneToMany(mappedBy = "opcion")
-    @JsonManagedReference
-    private List<PerfilOpcion> perfilOpciones;
 
 }

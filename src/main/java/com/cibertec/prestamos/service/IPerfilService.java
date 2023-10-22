@@ -9,7 +9,7 @@ public interface IPerfilService {
 
     Perfil obtenerPerfilPorId(int id);
 
-    void guardarPerfil(Perfil perfil);
+    Perfil guardarPerfil(Perfil perfil);
 
     void eliminarPerfil(int id);
 }
