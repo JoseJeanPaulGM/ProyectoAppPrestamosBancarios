@@ -1,5 +1,6 @@
 package com.cibertec.prestamos.service;
 
+import com.cibertec.prestamos.domain.model.Modulo;
 import com.cibertec.prestamos.domain.model.Perfil;
 import com.cibertec.prestamos.domain.repository.IPerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class PerfilServiceImpl implements IPerfilService {
     @Override
     public void eliminarPerfil(int id) {
         perfilRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Modulo> obtenerModuloPorPefil(Perfil perfil) {
+        return perfilRepository.findModulosByPerfil(perfil);
     }
 }

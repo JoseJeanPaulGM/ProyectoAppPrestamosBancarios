@@ -13,6 +13,8 @@ public class GrupoDto {
     public int estado;
     public String usuarioCreacion;
     public String usuarioModificacion;
+    public String fechaCreacion;
+    public String fechaModificacion;
 
     public GrupoPrestamistaDto grupoPrestamista;
 }

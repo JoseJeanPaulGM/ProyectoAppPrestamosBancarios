@@ -1,5 +1,7 @@
 package com.cibertec.prestamos.service;
 
+import com.cibertec.prestamos.domain.model.Grupo;
+import com.cibertec.prestamos.domain.model.Perfil;
 import com.cibertec.prestamos.domain.model.Usuario;
 
 import java.util.List;
@@ -14,5 +16,9 @@ public interface IUsuarioService {
     Optional<Usuario> obtenerUsuarioPorEmail(String email);
 
     Optional<Usuario> obtenerUsuarioPorId(int idUsuario);
+
+    List<Usuario> obtenerUsuariosPorPerfil(Perfil perfil);
+
+    List<Usuario> obtenerUsuariosPorUsuarioCreacion(String usuarioCreacion);
 
 }

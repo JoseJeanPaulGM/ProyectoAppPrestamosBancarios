@@ -34,4 +34,9 @@ public class GrupoServiceImpl implements IGrupoService {
     public void eliminarGrupo(Grupo grupo) {
         grupoRepository.delete(grupo);
     }
+
+    @Override
+    public Optional<Grupo> obtenerGrupoPorIdJefePrestamista(int idJefePrestamista) {
+        return grupoRepository.findByIdJefePrestamista(idJefePrestamista);
+    }
 }

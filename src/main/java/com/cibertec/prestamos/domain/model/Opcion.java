@@ -21,9 +21,6 @@ public class Opcion {
     @Column(name = "id_opcion")
     private int idOpcion;
 
-    @Column(name = "id_padre", nullable = false)
-    private int idPadre;
-
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
@@ -46,5 +43,10 @@ public class Opcion {
     @Column(name = "fecha_modificacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
+
+    @ManyToOne
+    @JoinColumn(name = "id_modulo")
+    @JsonBackReference
+    private Modulo modulo;
 
 }

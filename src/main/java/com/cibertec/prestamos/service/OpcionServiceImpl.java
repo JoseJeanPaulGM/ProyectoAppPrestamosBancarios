@@ -23,11 +23,6 @@ public class OpcionServiceImpl implements IOpcionService{
     }
 
     @Override
-    public List<Opcion> obtenerOpcionesPorModulo(int idModulo) {
-        return opcionRepository.findByIdModulo(idModulo);
-    }
-
-    @Override
     public Opcion guardarOpcion(Opcion opcion) {
         return opcionRepository.save(opcion);
     }

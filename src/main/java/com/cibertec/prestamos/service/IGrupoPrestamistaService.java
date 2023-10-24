@@ -1,5 +1,6 @@
 package com.cibertec.prestamos.service;
 
+import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.domain.model.GrupoPrestamista;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface IGrupoPrestamistaService {
     Optional<GrupoPrestamista> guardarGrupoDePrestamista(GrupoPrestamista grupoPrestamista);
 
     void eliminarGrupoDePrestamista(int id);
+
+    List<GrupoPrestamista> obtenerPrestamistasPorGrupo(Grupo grupo);
+
 }

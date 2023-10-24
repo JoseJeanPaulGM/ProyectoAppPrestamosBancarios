@@ -22,12 +22,12 @@ public class PerfilModulo {
     @Column(name = "id_perfil_modulo")
     private int idPerfilModulo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_perfil")
     @JsonBackReference
     private Perfil perfil;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_modulo")
     @JsonBackReference
 

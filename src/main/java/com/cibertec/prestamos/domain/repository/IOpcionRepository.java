@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface IOpcionRepository extends JpaRepository<Opcion, Integer> {
 
-    @Query("SELECT o FROM Opcion o WHERE o.modulo.idModulo = :idModulo")
-    public abstract List<Opcion> findByIdModulo(int idModulo);
 }

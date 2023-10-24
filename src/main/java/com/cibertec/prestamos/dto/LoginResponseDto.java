@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,10 +16,11 @@ public class LoginResponseDto {
     private String contrasena;
     private PersonaDto persona;
     private int estado;
-    private PerfilDto perfil;
-    private GrupoDto grupo;
+    private int idPerfil;
+    private String perfil;
     private String usuarioCreacion;
     private String usuarioModificacion;
-    private String fechaCreacion;
-    private String fechaModificacion;
+    private Date fechaCreacion;
+    private Date fechaModificacion;
+    private List<ModuloResponseDto> modulos;
 }

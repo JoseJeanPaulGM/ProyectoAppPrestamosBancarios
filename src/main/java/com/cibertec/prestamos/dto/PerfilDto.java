@@ -15,5 +15,7 @@ public class PerfilDto {
     public int estado;
     public String usuarioCreacion;
     public String usuarioModificacion;
+    public String fechaCreacion;
+    public String fechaModificacion;
     public List<ModuloDto> listaModulos;
 }

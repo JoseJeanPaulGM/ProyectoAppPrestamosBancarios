@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonaDto {
+    public int idPersona;
     public String nombres;
     public String apellidoPaterno;
     public String apellidoMaterno;

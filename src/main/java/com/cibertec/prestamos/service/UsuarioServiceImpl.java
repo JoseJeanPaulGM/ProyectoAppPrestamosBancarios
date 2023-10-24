@@ -1,5 +1,7 @@
 package com.cibertec.prestamos.service;
 
+import com.cibertec.prestamos.domain.model.Grupo;
+import com.cibertec.prestamos.domain.model.Perfil;
 import com.cibertec.prestamos.domain.model.Usuario;
 import com.cibertec.prestamos.domain.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +36,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Optional<Usuario> obtenerUsuarioPorId(int idUsuario) {
         return usuarioRepository.findByIdUsuario(idUsuario);
     }
+
+    @Override
+    public List<Usuario> obtenerUsuariosPorPerfil(Perfil perfil) {
+        return usuarioRepository.findAllByPerfil(perfil);
+    }
+
+    @Override
+    public List<Usuario> obtenerUsuariosPorUsuarioCreacion(String usuarioCreacion) {
+        return usuarioRepository.findAllByUsuarioCreacion(usuarioCreacion);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.cibertec.prestamos.domain.repository;
 
+import com.cibertec.prestamos.domain.model.Grupo;
+import com.cibertec.prestamos.domain.model.Perfil;
 import com.cibertec.prestamos.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -7,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
@@ -16,5 +19,10 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     //@Query("SELECT u FROM Usuario u WHERE u.email = :email")
     public abstract Optional<Usuario> findByEmail(String email);
+
+    public abstract List<Usuario> findAllByPerfil(Perfil perfil);
+
+    @Query("SELECT u FROM Usuario u WHERE u.usuarioCreacion = :usuarioCreacion")
+    public abstract List<Usuario> findAllByUsuarioCreacion(String usuarioCreacion);
 
 }

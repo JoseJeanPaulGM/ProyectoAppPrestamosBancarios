@@ -28,24 +28,20 @@ public class OpcionController {
     @GetMapping(path = "/listar")
     public ResponseEntity<Response> listar() {
         try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new Response(opcionService.obtenerTodasLasOpciones(), "Lista de opciones."));
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(opcionService.obtenerTodasLasOpciones(), "Lista de opciones."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("Error al listar las opciones."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las opciones."));
         }
     }
 
     @GetMapping(path = "/listar/{idModulo}")
     public ResponseEntity<Response> listarPorModulo(@PathVariable("idModulo") int idModulo) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new Response(opcionService.obtenerOpcionesPorModulo(idModulo), "Lista de opciones por modulo."));
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(opcionService.obtenerOpcionPorId(idModulo), "Lista de opciones por modulo."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("Error al listar las opciones por modulo."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las opciones por modulo."));
         }
     }
 
@@ -60,14 +56,11 @@ public class OpcionController {
             newOpcion.setFechaCreacion(Date.from(java.time.ZonedDateTime.now().toInstant()));
             Modulo modulo = new Modulo();
             modulo.setIdModulo(opcion.getIdModulo());
-            newOpcion.setModulo(modulo);
 
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new Response(opcionService.guardarOpcion(newOpcion), "Opcion registrado correctamente."));
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(opcionService.guardarOpcion(newOpcion), "Opcion registrado correctamente."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new Response("Error al registrar la opcion."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al registrar la opcion."));
         }
     }
 

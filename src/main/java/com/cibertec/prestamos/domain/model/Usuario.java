@@ -20,7 +20,7 @@ public class Usuario {
     @Column(name = "id_usuario")
     private int idUsuario;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_persona")
     private Persona persona;
 
@@ -59,4 +59,22 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     @JsonManagedReference
     private List<GrupoPrestamista> grupoPrestamistas;
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + idUsuario +
+                ", nombre='" + persona.getNombres() + '\'' +
+                ", apellidoPaterno='" + persona.getApellidoPaterno() + '\'' +
+                ", apellidoMaterno='" + persona.getApellidoMaterno() + '\'' +
+                ", email='" + email + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", perfil=" + perfil +
+                ", estado=" + estado +
+                ", usuarioCreacion='" + usuarioCreacion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", usuarioModificacion='" + usuarioModificacion + '\'' +
+                ", fechaModificacion=" + fechaModificacion +
+                '}';
+    }
 }

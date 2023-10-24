@@ -1,5 +1,6 @@
 package com.cibertec.prestamos.service;
 
+import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.domain.model.GrupoPrestamista;
 import com.cibertec.prestamos.domain.repository.IGrupoPrestamistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,4 +36,10 @@ public class GrupoPrestamistaServiceImpl  implements  IGrupoPrestamistaService{
     public void eliminarGrupoDePrestamista(int id) {
         grupoPrestamistaRepository.deleteById(id);
     }
+
+    @Override
+    public List<GrupoPrestamista> obtenerPrestamistasPorGrupo(Grupo grupo) {
+        return grupoPrestamistaRepository.findPrestamistasByGrupo(grupo);
+    }
+
 }

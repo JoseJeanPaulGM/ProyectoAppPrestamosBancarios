@@ -43,7 +43,7 @@ public class Grupo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
-    @OneToMany(mappedBy = "grupo")
+    @OneToMany(mappedBy = "grupo" ,cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<GrupoPrestamista> grupoPrestamistas;
 

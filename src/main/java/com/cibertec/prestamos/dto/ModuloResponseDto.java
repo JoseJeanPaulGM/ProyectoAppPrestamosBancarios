@@ -4,15 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ModuloDto {
+public class ModuloResponseDto {
 
     public int idModulo;
     public String descripcion;
     public int estado;
-    public String usuarioCreacion;
-    public String usuarioModificacion;
-    public int idPerfil;
+    public List<OpcionResponseDto> opciones;
 }

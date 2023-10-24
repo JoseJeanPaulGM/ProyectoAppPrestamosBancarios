@@ -7,12 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpcionDto {
+public class OpcionResponseDto {
     public int idOpcion;
     public String descripcion;
     public String url;
     public int estado;
-    public String usuarioCreacion;
-    public String usuarioModificacion;
-    public int idModulo;
 }
