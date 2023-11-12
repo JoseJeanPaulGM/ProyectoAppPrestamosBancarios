@@ -57,6 +57,8 @@ public class OpcionController {
             Modulo modulo = new Modulo();
             modulo.setIdModulo(opcion.getIdModulo());
 
+            newOpcion.setModulo(modulo);
+
             return ResponseEntity.status(HttpStatus.OK).body(new Response(opcionService.guardarOpcion(newOpcion), "Opcion registrado correctamente."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
