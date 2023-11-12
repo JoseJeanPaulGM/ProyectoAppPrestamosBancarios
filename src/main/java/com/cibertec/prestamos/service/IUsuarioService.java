@@ -21,4 +21,10 @@ public interface IUsuarioService {
 
     List<Usuario> obtenerUsuariosPorUsuarioCreacion(String usuarioCreacion);
 
+    Optional<Usuario> obtenerUsuarioPorIdPersona(int idPersona);
+
+    void eliminarUsuarioPorId(int idUsuario);
+
+    void eliminarUsuario(Usuario usuario);
+
 }
