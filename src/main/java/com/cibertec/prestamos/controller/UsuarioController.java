@@ -368,4 +368,55 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar el usuario."));
         }
     }
+
+    @PutMapping(path = "/actualizar/password")
+    public ResponseEntity<Response> actualizarPassword(@RequestBody ActualizarPasswordDto usuario) {
+        try {
+
+            Optional<Usuario> _usuario = usuarioService.obtenerUsuarioPorId(usuario.getIdUsuario());
+
+            if (_usuario.isPresent()) {
+                log.info("Usuario existe: {}", _usuario.get().getIdUsuario());
+                if (!passEncode.matches(usuario.contrasena, _usuario.get().getContrasena())) {
+                    log.info("Password anterior incorrecto.");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("El Password  anterior es incorrecto."));
+                }
+                _usuario.get().setContrasena(passEncode.encode(usuario.getContrasenaNueva()));
+                _usuario.get().setFechaModificacion(Date.from(java.time.ZonedDateTime.now().toInstant()));
+                _usuario.get().setUsuarioModificacion(usuario.getUsuarioModificacion());
+            } else {
+                log.info("Usuario no existe");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("El usuario [ " + usuario.getIdUsuario() + " ] no existe."));
+            }
+
+            usuarioService.guardarUsuario(_usuario.get());
+            return ResponseEntity.status(HttpStatus.OK).body(new Response("Usuario actualizado correctamente."));
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar el usuario."));
+        }
+    }
+
+    @DeleteMapping(path = "/eliminar/{id}")
+    public ResponseEntity<Response> eliminar(@PathVariable("id") int id) {
+        try {
+            Optional<Usuario> _usuario = usuarioService.obtenerUsuarioPorId(id);
+            if (_usuario.isPresent()) {
+                log.info("Usuario existe: {}", _usuario.get().getIdUsuario());
+//                if (_usuario.get().getPerfil().getIdPerfil() ==3){
+//                    //GrupoPrestamista grupoPrestamista = grupoPrestamistaService.obtenerPrestamistaPorIdPrestamista(_usuario.get().getIdUsuario());
+//                    grupoPrestamistaService.eliminarGrupoDePrestamista(grupoPrestamista.getIdGrupoPrestamista());
+//                }
+                usuarioService.eliminarUsuario(_usuario.get());
+
+                return ResponseEntity.status(HttpStatus.OK).body(new Response("Usuario eliminado correctamente."));
+            } else {
+                log.info("Usuario no existe");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("El usuario [ " + id + " ] no existe."));
+            }
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al eliminar el usuario."));
+        }
+    }
 }

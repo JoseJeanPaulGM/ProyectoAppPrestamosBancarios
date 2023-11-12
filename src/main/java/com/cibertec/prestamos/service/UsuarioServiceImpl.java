@@ -47,4 +47,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return usuarioRepository.findAllByUsuarioCreacion(usuarioCreacion);
     }
 
+    @Override
+    public Optional<Usuario> obtenerUsuarioPorIdPersona(int idPersona) {
+        return usuarioRepository.findByIdPersona(idPersona);
+    }
+
+    @Override
+    public void eliminarUsuarioPorId(int idUsuario) {
+        usuarioRepository.deleteByIdUsuario(idUsuario);
+    }
+
+    @Override
+    public void eliminarUsuario(Usuario usuario) {
+        usuarioRepository.delete(usuario);
+    }
 }
