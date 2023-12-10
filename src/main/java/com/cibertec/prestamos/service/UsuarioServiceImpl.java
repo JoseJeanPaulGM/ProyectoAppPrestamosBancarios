@@ -1,6 +1,5 @@
 package com.cibertec.prestamos.service;
 
-import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.domain.model.Perfil;
 import com.cibertec.prestamos.domain.model.Usuario;
 import com.cibertec.prestamos.domain.repository.IUsuarioRepository;
@@ -16,7 +15,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
-
     @Override
     public List<Usuario> obtenerTodosLosUsuarios() {
         return usuarioRepository.findAll();
@@ -29,7 +27,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public Optional<Usuario> obtenerUsuarioPorEmail(String email) {
-        return  usuarioRepository.findByEmail(email);
+        return usuarioRepository.findByEmail(email);
     }
 
     @Override
@@ -45,20 +43,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<Usuario> obtenerUsuariosPorUsuarioCreacion(String usuarioCreacion) {
         return usuarioRepository.findAllByUsuarioCreacion(usuarioCreacion);
-    }
-    @Override
-    public Optional<Usuario> obtenerUsuarioPorIdPersona(int idPersona) {
-        return usuarioRepository.findByIdPersona(idPersona);
-    }
-
-    @Override
-    public void eliminarUsuarioPorId(int idUsuario) {
-        usuarioRepository.deleteByIdUsuario(idUsuario);
-    }
-
-    @Override
-    public void eliminarUsuario(Usuario usuario) {
-        usuarioRepository.delete(usuario);
     }
 
     @Override
