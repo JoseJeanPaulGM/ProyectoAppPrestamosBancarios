@@ -14,10 +14,9 @@ import java.util.Optional;
 
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-
     public abstract Optional<Usuario> findByIdUsuario(int idUsuario);
 
-    //@Query("SELECT u FROM Usuario u WHERE u.email = :email")
+    // @Query("SELECT u FROM Usuario u WHERE u.email = :email")
     public abstract Optional<Usuario> findByEmail(String email);
 
     public abstract List<Usuario> findAllByPerfil(Perfil perfil);
@@ -29,6 +28,5 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
     public abstract Optional<Usuario> findByIdPersona(int idPersona);
 
     public abstract void deleteByIdUsuario(int idUsuario);
-
 
 }

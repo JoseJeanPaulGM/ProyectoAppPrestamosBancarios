@@ -11,7 +11,6 @@ import org.hibernate.annotations.IdGeneratorType;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "cuenta_bancaria")
 @Data

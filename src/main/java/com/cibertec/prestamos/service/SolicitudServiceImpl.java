@@ -40,7 +40,7 @@ public class SolicitudServiceImpl implements ISolicitudService {
 
     @Override
     public Solicitud guardarSolicitud(Solicitud solicitud) {
-       return  solicitudRepository.save(solicitud);
+        return solicitudRepository.save(solicitud);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SolicitudServiceImpl implements ISolicitudService {
 
     @Override
     public void actualizarEstado(int idSolicitud, int estado) {
-       solicitudRepository.actualizarEstado(idSolicitud, estado);
+        solicitudRepository.actualizarEstado(idSolicitud, estado);
     }
 
     @Override

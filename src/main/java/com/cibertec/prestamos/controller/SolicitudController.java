@@ -53,11 +53,12 @@ public class SolicitudController {
             return ResponseEntity.status(HttpStatus.OK).body(new Response(solicitudes, "Lista de solicitudes."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las solicitudes."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al listar las solicitudes."));
         }
     }
 
-    //listar solicitudes por prestatario
+    // listar solicitudes por prestatario
     @GetMapping(path = "/cliente/{id}")
     public ResponseEntity<Response> listarSolicitudesPorPrestatario(@PathVariable("id") int id) {
         try {
@@ -65,11 +66,12 @@ public class SolicitudController {
             return ResponseEntity.status(HttpStatus.OK).body(new Response(solicitudes, "Lista de solicitudes."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las solicitudes."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al listar las solicitudes."));
         }
     }
 
-    //listar solicitudes por prestamista
+    // listar solicitudes por prestamista
     @GetMapping(path = "/prestamista/{id}")
     public ResponseEntity<Response> listarSolicitudesPorPrestamista(@PathVariable("id") int id) {
         try {
@@ -77,11 +79,12 @@ public class SolicitudController {
             return ResponseEntity.status(HttpStatus.OK).body(new Response(solicitudes, "Lista de solicitudes."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las solicitudes."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al listar las solicitudes."));
         }
     }
 
-    //listar solicitudes por Jefe de Prestamista
+    // listar solicitudes por Jefe de Prestamista
     @GetMapping(path = "/jefePrestamista/{id}")
     public ResponseEntity<Response> listarSolicitudesPorJefePrestamista(@PathVariable("id") int id) {
         try {
@@ -94,19 +97,20 @@ public class SolicitudController {
             }
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las solicitudes."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al listar las solicitudes."));
         }
     }
-
-
 
     @GetMapping(path = "/listarCuentas")
     public ResponseEntity<Response> listarCuentasBancarias() {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(cuentaBancariaService.obtenerTodasLasCuentasBancarias(), "Lista de cuentas bancarias."));
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(
+                    cuentaBancariaService.obtenerTodasLasCuentasBancarias(), "Lista de cuentas bancarias."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las cuentas bancarias."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al listar las cuentas bancarias."));
         }
     }
 
@@ -117,10 +121,10 @@ public class SolicitudController {
             return ResponseEntity.status(HttpStatus.OK).body(new Response(cuentas, "Cuenta bancaria."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar la cuenta bancaria."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al listar la cuenta bancaria."));
         }
     }
-
 
     @PostMapping(path = "/registrar")
     public ResponseEntity<Response> registrar(@RequestBody SolicitudDto solicitud) {
@@ -135,43 +139,48 @@ public class SolicitudController {
             newSolicitud.setConcepto(solicitud.getConcepto());
             newSolicitud.setCuentaBancaria(solicitud.getCuentaBancaria());
             newSolicitud.setCantidadCuotas(solicitud.getCantidadCuotas());
-            newSolicitud.setEstado(1); //-- 1: Pendiente, 2: Aprobado, 3: Rechazado
+            newSolicitud.setEstado(1); // -- 1: Pendiente, 2: Aprobado, 3: Rechazado
             newSolicitud.setUsuarioCreacion(solicitud.getUsuarioCreacion());
             newSolicitud.setInteres(solicitud.getInteres());
             newSolicitud.setFechaCreacion(new Date());
 
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(solicitudService.guardarSolicitud(newSolicitud), "Solicitud registrada."));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Response(solicitudService.guardarSolicitud(newSolicitud), "Solicitud registrada."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al registrar la solicitud."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al registrar la solicitud."));
         }
     }
 
     @PutMapping(path = "/actualizar")
     public ResponseEntity<Response> actualizar(@RequestBody Solicitud solicitud) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(solicitudService.actualizarSolicitud(solicitud), "Solicitud actualizada."));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Response(solicitudService.actualizarSolicitud(solicitud), "Solicitud actualizada."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar la solicitud."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al actualizar la solicitud."));
         }
 
     }
 
-    //actualizr estado de solicitud
+    // actualizr estado de solicitud
     @PutMapping(path = "/aprobar/{id}")
-    public ResponseEntity<Response> actualizarEstado(@PathVariable("id") int id, @RequestBody SolictudPrestamoDto solicitud) {
+    public ResponseEntity<Response> actualizarEstado(@PathVariable("id") int id,
+            @RequestBody SolictudPrestamoDto solicitud) {
         try {
 
-            //Obtener Datos de Solitud
+            // Obtener Datos de Solitud
             Solicitud solicitudData = solicitudService.obtenerSolicitudPorId(id);
             GrupoPrestamista grupo = grupoPrestamistaService.obtenerGrupoPorIdPrestamista(solicitud.getIdPrestamista());
             Date fechaVencimiento = solicitud.cuotas.get(solicitudData.getCantidadCuotas() - 1).getFechaVencimiento();
 
-            //crear prestamo, actualizar estado de solicitud y generar cuotas
+            // crear prestamo, actualizar estado de solicitud y generar cuotas
             Prestamo prestamo = new Prestamo();
             prestamo.setNumeroCuotas(solicitudData.getCantidadCuotas());
-            prestamo.setEstado(1); //-- 1: Aprobado, 2: Pagado
+            prestamo.setEstado(1); // -- 1: Aprobado, 2: Pagado
             prestamo.setFechaInicio(new Date());
             prestamo.setFechaCreacion(new Date());
             prestamo.setFechaVencimiento(fechaVencimiento);
@@ -187,12 +196,12 @@ public class SolicitudController {
             _solicitud.setIdSolicitud(id);
             prestamo.setSolicitud(_solicitud);
 
-            //setear cuotas
+            // setear cuotas
             List<CuotaPrestamo> cuotas = new ArrayList<>();
 
             for (CuotasDto cuota : solicitud.cuotas) {
                 CuotaPrestamo _cuota = new CuotaPrestamo();
-                _cuota.setEstado(1); //-- 1: Pendiente, 2:Parcialmente , 3: Pagado
+                _cuota.setEstado(1); // -- 1: Pendiente, 2:Parcialmente , 3: Pagado
                 _cuota.setFechaRegistro(new Date());
                 _cuota.setFechaVencimiento(cuota.getFechaVencimiento());
                 _cuota.setInteres(cuota.getInteres());
@@ -208,7 +217,7 @@ public class SolicitudController {
 
             prestamo.setCuotasPrestamo(cuotas);
 
-            //guardar prestamo
+            // guardar prestamo
             prestamoService.guardarPrestamo(prestamo);
 
             solicitudData.setEstado(2);
@@ -218,17 +227,20 @@ public class SolicitudController {
             solicitudData.setIdGrupoPrestamista(grupo.getGrupoId());
             solicitudService.actualizarSolicitud(solicitudData);
 
-            return ResponseEntity.status(HttpStatus.OK).body(new Response("Solicitud: " + id + " fue aprobada.", "Solicitud actualizada."));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Response("Solicitud: " + id + " fue aprobada.", "Solicitud actualizada."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar la solicitud."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al actualizar la solicitud."));
         }
 
     }
 
-    //actualizr estado de solicitud
+    // actualizr estado de solicitud
     @PutMapping(path = "/rechazar/{id}")
-    public ResponseEntity<Response> actualizarEstadoRechazado(@PathVariable("id") int id, @RequestBody SolictudPrestamoDto solicitud) {
+    public ResponseEntity<Response> actualizarEstadoRechazado(@PathVariable("id") int id,
+            @RequestBody SolictudPrestamoDto solicitud) {
         try {
             Solicitud solicitudData = solicitudService.obtenerSolicitudPorId(id);
             GrupoPrestamista grupo = grupoPrestamistaService.obtenerGrupoPorIdPrestamista(solicitud.getIdPrestamista());
@@ -241,15 +253,17 @@ public class SolicitudController {
             solicitudData.setObservaciones(solicitud.getObservaciones());
             solicitudService.actualizarSolicitud(solicitudData);
 
-            return ResponseEntity.status(HttpStatus.OK).body(new Response("Solicitud: " + id + " fue rechazada.", "Solicitud actualizada."));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Response("Solicitud: " + id + " fue rechazada.", "Solicitud actualizada."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar la solicitud."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al actualizar la solicitud."));
         }
 
     }
 
-    //registrar cuenta bancaria
+    // registrar cuenta bancaria
     @PostMapping(path = "/registrarCuenta")
     @CrossOrigin(origins = AppSettings.CrossOriginUrl)
     public ResponseEntity<Response> registrarCuenta(@RequestBody CuentaBancariaDto cuentaBancaria) {
@@ -260,12 +274,14 @@ public class SolicitudController {
             newCuentaBancaria.setCliente(prestatario);
             newCuentaBancaria.setNumeroCuenta(cuentaBancaria.getNumeroCuenta());
             newCuentaBancaria.setBanco(cuentaBancaria.getBanco());
-            newCuentaBancaria.setEstado(1); //-- 1: Activo, 2: Inactivo
+            newCuentaBancaria.setEstado(1); // -- 1: Activo, 2: Inactivo
 
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(cuentaBancariaService.guardarCuentaBancaria(newCuentaBancaria), "Cuenta bancaria registrada."));
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(
+                    cuentaBancariaService.guardarCuentaBancaria(newCuentaBancaria), "Cuenta bancaria registrada."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al registrar la cuenta bancaria."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response("Error al registrar la cuenta bancaria."));
         }
     }
 

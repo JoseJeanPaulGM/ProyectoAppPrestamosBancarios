@@ -1,4 +1,4 @@
-# Nombre del Proyecto
+# Aplicación de Préstamos
 Proyecto BackEnd de Web API Prestamos - JAVA 17 - SpringBoot - JPA
 
 ## Requisitos Previos
