@@ -102,7 +102,7 @@ public class PrestamoController {
                     .body(new Response("Error al registrar el prestamo."));
         }
     }
-
+    // Actualizar prestamista por id
     @PutMapping(path = "/actualizar")
     public ResponseEntity<Response> actualizar(@RequestBody Prestamo prestamo) {
         try {
@@ -115,7 +115,7 @@ public class PrestamoController {
         }
     }
 
-    // Listar por prestamista
+    // Listar por prestamista por id
     @GetMapping(path = "/prestamista/{id}")
     public ResponseEntity<Response> listarPorPrestamista(@PathVariable("id") int id) {
         try {
@@ -155,7 +155,7 @@ public class PrestamoController {
         }
     }
 
-    // Listar por jefe de grupo
+    // Listar por jefe de grupo por id
     @GetMapping(path = "/jefePrestamista/{id}")
     public ResponseEntity<Response> listarPorJefePrestamista(@PathVariable("id") int id) {
         try {
