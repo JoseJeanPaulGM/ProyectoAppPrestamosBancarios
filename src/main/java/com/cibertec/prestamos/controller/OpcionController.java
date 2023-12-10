@@ -35,6 +35,7 @@ public class OpcionController {
         }
     }
 
+//Listado de Modulos
     @GetMapping(path = "/listar/{idModulo}")
     public ResponseEntity<Response> listarPorModulo(@PathVariable("idModulo") int idModulo) {
         try {
@@ -44,7 +45,7 @@ public class OpcionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar las opciones por modulo."));
         }
     }
-
+//Registrar opción
     @PostMapping(path = "/registrar")
     public ResponseEntity<Response> registrar(@RequestBody OpcionDto opcion) {
         try {

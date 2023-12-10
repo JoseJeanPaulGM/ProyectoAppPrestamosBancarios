@@ -62,6 +62,7 @@ public class CuotaController {
             newCuotaPrestamo.setUsuarioModificacion(cuotaPrestamo.getUsuarioModificacion());
 
             BigDecimal montoPagadoActual = newCuotaPrestamo.getMontoPagado();
+            // Modificacion  de monto pagado
             newCuotaPrestamo.setMontoPagado(montoPagadoActual.add(cuotaPrestamo.getMontoPagado()));
 
             newCuotaPrestamo.setMontoPendiente(cuotaPrestamo.getMontoPendiente());
