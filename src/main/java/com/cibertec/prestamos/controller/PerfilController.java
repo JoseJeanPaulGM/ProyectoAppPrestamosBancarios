@@ -25,7 +25,7 @@ public class PerfilController {
 
     @Autowired
     private IPerfilService perfilService;
-    private Logger log = LoggerFactory.getLogger(UsuarioController.class);
+    private Logger log = LoggerFactory.getLogger(PerfilController.class);
 
     @GetMapping(path = "/listar")
     public ResponseEntity<Response> listar() {

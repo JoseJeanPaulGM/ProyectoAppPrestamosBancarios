@@ -15,6 +15,10 @@ public interface IGrupoPrestamistaService {
 
     void eliminarGrupoDePrestamista(int id);
 
-    List<GrupoPrestamista> obtenerPrestamistasPorGrupo(Grupo grupo);
+    List<GrupoPrestamista> obtenerPrestamistasPorGrupo(int grupo);
+
+    GrupoPrestamista obtenerGrupoPorIdPrestamista(int idPrestamista);
+
+    List<GrupoPrestamista> obtenerPrestamistasPorUsuarioCreacion(String usuarioCreacion);
 
 }

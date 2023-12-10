@@ -9,7 +9,9 @@ public interface ICuotaPrestamoService {
 
     CuotaPrestamo obtenerCuotaDePrestamoPorId(int id);
 
-    void guardarCuotaDePrestamo(CuotaPrestamo cuotaPrestamo);
+    CuotaPrestamo guardarCuotaDePrestamo(CuotaPrestamo cuotaPrestamo);
+
+    CuotaPrestamo actualizarCuotaDePrestamo(CuotaPrestamo cuotaPrestamo);
 
     void eliminarCuotaDePrestamo(int id);
 }

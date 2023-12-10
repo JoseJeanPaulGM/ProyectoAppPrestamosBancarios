@@ -36,6 +36,9 @@ public class UsuarioController {
     private IGrupoPrestamistaService grupoPrestamistaService;
 
     @Autowired
+    private  ICuentaBancariaService cuentaBancariaService;
+
+    @Autowired
     private IPerfilService perfilService;
 
     private Logger log = LoggerFactory.getLogger(UsuarioController.class);
@@ -163,7 +166,7 @@ public class UsuarioController {
                 }
             } else {
                 log.info("Usuario no existe");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("El usuario [ " + usuario.getEmail() + " ] no existe."));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("Usuario o Password  incorrecto."));
             }
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
@@ -187,8 +190,7 @@ public class UsuarioController {
 
                 if (_persona.isPresent()) {
                     log.info("Persona existe: {}", _persona.get().getIdPersona());
-
-                    persona = _persona.get();
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("El número de documento [" + usuario.getPersona().getNumeroDocumento() + "] ya está registrado."));
 
                 } else {
 
@@ -207,10 +209,12 @@ public class UsuarioController {
                     persona.setDireccion(usuario.getPersona().getDireccion());
                     persona.setEmail(usuario.getPersona().getEmail());
                     persona.setTelefono(usuario.getPersona().getTelefono());
+
+
                 }
 
                 Perfil perfil = new Perfil();
-                perfil.setIdPerfil(usuario.getIdPerfil());
+                perfil.setIdPerfil(4); // Cliente
 
                 newUser.setPerfil(perfil);
                 newUser.setPersona(persona);
@@ -222,6 +226,17 @@ public class UsuarioController {
 
                 Optional<Usuario> newUserCreate = Optional.ofNullable(usuarioService.guardarUsuario(newUser));
                 if (newUserCreate.isPresent()) {
+                    var newCuentaBanca = new CuentaBancaria();
+                    newCuentaBanca.setNumeroCuenta(usuario.getNumeroCuenta());
+                    newCuentaBanca.setCliente(newUserCreate.get());
+                    newCuentaBanca.setEstado(1);
+                    newCuentaBanca.setBanco(usuario.getBanco());
+
+                    Optional<CuentaBancaria> newCuentaBancaria = Optional.ofNullable(cuentaBancariaService.guardarCuentaBancaria(newCuentaBanca));
+                    var ListCuentaBancaria =  cuentaBancariaService.obtenerCuentaPorIdPrestatario(newUserCreate.get().getIdUsuario());
+                    ListCuentaBancaria.add(newCuentaBanca);
+                    newUserCreate.get().setCuentasBancarias(ListCuentaBancaria);
+
                     return ResponseEntity.status(HttpStatus.CREATED).body(new Response(newUser, "Se registró correctamente al usuario."));
                 } else {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("No se pudo registrar al usuario."));
@@ -311,7 +326,7 @@ public class UsuarioController {
                         if (grupo.isEmpty()) {
                             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("No se pudo registrar al usuario, Asociación de Grupo Incorrecto."));
                         }
-                        grupoPrestamista.setGrupo(grupo.get());
+                        grupoPrestamista.setIdGrupo(grupo.get());
 
                         Optional<GrupoPrestamista> newGrupoPrestamista = grupoPrestamistaService.guardarGrupoDePrestamista(grupoPrestamista);
 
@@ -343,29 +358,123 @@ public class UsuarioController {
     }
 
     @PutMapping(path = "/actualizar")
-    public ResponseEntity<Response> actualizar(@RequestBody Usuario usuario) {
+    public ResponseEntity<Response> actualizar(@RequestBody EmpleadoRequestDto usuario) {
         try {
 
             Optional<Usuario> _usuario = usuarioService.obtenerUsuarioPorId(usuario.getIdUsuario());
 
             if (_usuario.isPresent()) {
                 log.info("Usuario existe: {}", _usuario.get().getIdUsuario());
-                usuario.setFechaCreacion(_usuario.get().getFechaCreacion());
-                usuario.setUsuarioCreacion(_usuario.get().getUsuarioCreacion());
-                usuario.setFechaModificacion(Date.from(java.time.ZonedDateTime.now().toInstant()));
-                usuario.setUsuarioModificacion(usuario.getUsuarioModificacion());
-                usuario.setEstado(_usuario.get().getEstado());
-                usuario.setContrasena(_usuario.get().getContrasena());
+               _usuario.get().setEstado(usuario.getEstado());
+                _usuario.get().setFechaModificacion(Date.from(java.time.ZonedDateTime.now().toInstant()));
+                _usuario.get().setUsuarioModificacion(usuario.getUsuarioCreacion());
+                Persona persona = new Persona();
+                persona.setNombres(usuario.getPersona().getNombres());
+                persona.setApellidoPaterno(usuario.getPersona().getApellidoPaterno());
+                persona.setApellidoMaterno(usuario.getPersona().getApellidoMaterno());
+                persona.setNumeroDocumento(usuario.getPersona().getNumeroDocumento());
+                TipoDocumento tipoDocumento = new TipoDocumento();
+                tipoDocumento.setIdDocumento(usuario.getPersona().getTipoDocumento());
+                persona.setTipoDocumento(tipoDocumento);
+                persona.setDireccion(usuario.getPersona().getDireccion());
+                _usuario.get().setPersona(persona);
+
             } else {
                 log.info("Usuario no existe");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("El usuario [ " + usuario.getIdUsuario() + " ] no existe."));
             }
 
-            usuarioService.guardarUsuario(usuario);
+            usuarioService.guardarUsuario(_usuario.get());
+           personaService.guardarPersona(_usuario.get().getPersona());
             return ResponseEntity.status(HttpStatus.OK).body(new Response("Usuario actualizado correctamente."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar el usuario."));
+        }
+    }
+
+    @PutMapping(path = "/actualizar/password")
+    public ResponseEntity<Response> actualizarPassword(@RequestBody ActualizarPasswordDto usuario) {
+        try {
+
+            Optional<Usuario> _usuario = usuarioService.obtenerUsuarioPorId(usuario.getIdUsuario());
+
+            if (_usuario.isPresent()) {
+                log.info("Usuario existe: {}", _usuario.get().getIdUsuario());
+                if (!passEncode.matches(usuario.contrasena, _usuario.get().getContrasena())) {
+                    log.info("Password anterior incorrecto.");
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("El Password  anterior es incorrecto."));
+                }
+                _usuario.get().setContrasena(passEncode.encode(usuario.getContrasenaNueva()));
+                _usuario.get().setFechaModificacion(Date.from(java.time.ZonedDateTime.now().toInstant()));
+                _usuario.get().setUsuarioModificacion(usuario.getUsuarioModificacion());
+            } else {
+                log.info("Usuario no existe");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("El usuario [ " + usuario.getIdUsuario() + " ] no existe."));
+            }
+
+            usuarioService.guardarUsuario(_usuario.get());
+            return ResponseEntity.status(HttpStatus.OK).body(new Response("Usuario actualizado correctamente."));
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al actualizar el usuario."));
+        }
+    }
+
+    @DeleteMapping(path = "/eliminar/{id}")
+    public ResponseEntity<Response> eliminar(@PathVariable("id") int id) {
+        try {
+            Optional<Usuario> _usuario = usuarioService.obtenerUsuarioPorId(id);
+            if (_usuario.isPresent()) {
+                log.info("Usuario existe: {}", _usuario.get().getIdUsuario());
+//                if (_usuario.get().getPerfil().getIdPerfil() ==3){
+//                    //GrupoPrestamista grupoPrestamista = grupoPrestamistaService.obtenerPrestamistaPorIdPrestamista(_usuario.get().getIdUsuario());
+//                    grupoPrestamistaService.eliminarGrupoDePrestamista(grupoPrestamista.getIdGrupoPrestamista());
+//                }
+                usuarioService.eliminarUsuario(_usuario.get());
+
+                return ResponseEntity.status(HttpStatus.OK).body(new Response("Usuario eliminado correctamente."));
+            } else {
+                log.info("Usuario no existe");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response("El usuario [ " + id + " ] no existe."));
+            }
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al eliminar el usuario."));
+        }
+    }
+
+
+    //Obtener listado de Prestamistas por Id de Jefe de Prestamista
+    @GetMapping(path = "/prestamistas/{id}")
+    public ResponseEntity<Response> listarPrestamistasPorJefePrestamista(@PathVariable("id") int id) {
+        try {
+            Optional<Usuario> _usuario = usuarioService.obtenerUsuarioPorId(id);
+            if (_usuario.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.OK).body(new Response("No se encontró el Jefe de Prestamis - Id = [ " + id + " ]."));
+            }
+            List<GrupoPrestamista> listaGrupoPrestamista = grupoPrestamistaService.obtenerPrestamistasPorUsuarioCreacion(_usuario.get().getEmail());
+
+            //pasarlo a este DTO PrestamistaGrupoDto
+            List<PrestamistaGrupoDto> listaPrestamistaGrupoDto = new ArrayList<>();
+            for (GrupoPrestamista grupoPrestamista : listaGrupoPrestamista) {
+                PrestamistaGrupoDto prestamistaGrupoDto = new PrestamistaGrupoDto();
+                prestamistaGrupoDto.setIdGrupoPrestamista(grupoPrestamista.getIdGrupoPrestamista());
+                prestamistaGrupoDto.setIdPrestamista(grupoPrestamista.getUsuario().getIdUsuario());
+                prestamistaGrupoDto.setIdJefePrestamista(grupoPrestamista.getIdGrupo().getIdJefePrestamista());
+                prestamistaGrupoDto.setNombres(grupoPrestamista.getUsuario().getPersona().getNombres());
+                prestamistaGrupoDto.setApellidoPaterno(grupoPrestamista.getUsuario().getPersona().getApellidoPaterno());
+                prestamistaGrupoDto.setApellidoMaterno(grupoPrestamista.getUsuario().getPersona().getApellidoMaterno());
+                prestamistaGrupoDto.setDni(grupoPrestamista.getUsuario().getPersona().getNumeroDocumento());
+                prestamistaGrupoDto.setTelefono(grupoPrestamista.getUsuario().getPersona().getTelefono());
+                prestamistaGrupoDto.setEmail(grupoPrestamista.getUsuario().getEmail());
+                listaPrestamistaGrupoDto.add(prestamistaGrupoDto);
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(listaPrestamistaGrupoDto, "Lista de prestamistas del Jefe de prestamista Id = [ " + id + " ]."));
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar los prestamistas del Jefe de prestamista Id = [ " + id + " ]."));
         }
     }
 }

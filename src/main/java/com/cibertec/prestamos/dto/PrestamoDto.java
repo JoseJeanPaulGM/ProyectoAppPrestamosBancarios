@@ -1,2 +1,5 @@
-package com.cibertec.prestamos.dto;public class PrestamoDto {
+package com.cibertec.prestamos.dto;
+
+public class PrestamoDto {
+
 }

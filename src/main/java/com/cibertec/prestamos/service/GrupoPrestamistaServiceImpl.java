@@ -38,8 +38,18 @@ public class GrupoPrestamistaServiceImpl  implements  IGrupoPrestamistaService{
     }
 
     @Override
-    public List<GrupoPrestamista> obtenerPrestamistasPorGrupo(Grupo grupo) {
+    public List<GrupoPrestamista> obtenerPrestamistasPorGrupo(int grupo) {
         return grupoPrestamistaRepository.findPrestamistasByGrupo(grupo);
+    }
+
+    @Override
+    public GrupoPrestamista obtenerGrupoPorIdPrestamista(int idPrestamista) {
+        return grupoPrestamistaRepository.findByIdPrestamista(idPrestamista);
+    }
+
+    @Override
+    public List<GrupoPrestamista> obtenerPrestamistasPorUsuarioCreacion(String usuarioCreacion) {
+        return grupoPrestamistaRepository.findPrestamistasByUsuarioCreacion(usuarioCreacion);
     }
 
 }

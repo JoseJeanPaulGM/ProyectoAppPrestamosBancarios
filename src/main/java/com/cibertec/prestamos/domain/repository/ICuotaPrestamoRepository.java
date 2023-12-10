@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ICuotaPrestamoRepository extends JpaRepository<CuotaPrestamo, Integer> {
     // Puedes agregar métodos personalizados aquí si es necesario
+    //actual
 }

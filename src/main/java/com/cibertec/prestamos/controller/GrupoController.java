@@ -30,7 +30,7 @@ public class GrupoController {
     @Autowired
     private IGrupoPrestamistaService grupoPrestamistaService;
 
-    private Logger log = LoggerFactory.getLogger(UsuarioController.class);
+    private Logger log = LoggerFactory.getLogger(GrupoController.class);
 
     @GetMapping(path = "/listar")
     public ResponseEntity<Response> listar() {
@@ -61,18 +61,6 @@ public class GrupoController {
             newGrupo.setFechaCreacion(Date.from(java.time.ZonedDateTime.now().toInstant()));
             newGrupo.setUsuarioCreacion(grupo.getUsuarioCreacion());
 
-//            List<GrupoPrestamista> listaGrupoPrestamista = new java.util.ArrayList<>();
-//            for (PrestamistaDto prestamista : grupo.getListaPrestamistas()) {
-//                GrupoPrestamista newGrupoPrestamista = new GrupoPrestamista();
-//                newGrupoPrestamista.setGrupo(newGrupo);
-//                newGrupoPrestamista.setPrestamista(prestamistaService.obtenerPrestamistaPorId(prestamista.getId()));
-//                newGrupoPrestamista.setEstado(1);
-//                newGrupoPrestamista.setFechaCreacion(Date.from(java.time.ZonedDateTime.now().toInstant()));
-//                newGrupoPrestamista.setUsuarioCreacion(grupo.getUsuarioCreacion());
-//                listaGrupoPrestamista.add(newGrupoPrestamista);
-//            }
-//            newGrupo.setListaGrupoPrestamista(listaGrupoPrestamista);
-
             return ResponseEntity.status(HttpStatus.OK).body(new Response(grupoService.guardarGrupo(newGrupo), "Grupo registrado."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
@@ -87,12 +75,45 @@ public class GrupoController {
             if (grupo.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.OK).body(new Response("No se encontró el grupo Id = [ " + id + " ]."));
             }
-            List<GrupoPrestamista> listaGrupoPrestamista = grupoPrestamistaService.obtenerPrestamistasPorGrupo(grupo.get());
+            List<GrupoPrestamista> listaGrupoPrestamista = grupoPrestamistaService.obtenerPrestamistasPorGrupo(grupo.get().getIdGrupo());
 
             return ResponseEntity.status(HttpStatus.OK).body(new Response(listaGrupoPrestamista, "Lista de prestamistas del grupo Id = [ " + id + " ]."));
         } catch (Exception e) {
             log.info("Error: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar los prestamistas del grupo Id = [ " + id + " ]."));
+        }
+    }
+
+
+    //Obtener grupo de un Jefe de Prestamista
+    @GetMapping(path = "/jefePrestamista/{id}")
+    public ResponseEntity<Response> listarGrupoPorJefePrestamista(@PathVariable("id") int id) {
+        try {
+            Optional<Grupo> grupo = grupoService.obtenerGrupoPorIdJefePrestamista(id);
+            if (!grupo.isPresent()) {
+                return ResponseEntity.status(HttpStatus.OK).body(new Response("No se encontró el Jefe de Prestamis - Id = [ " + id + " ]."));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(grupo, "Grupo del Jefe de prestamista Id = [ " + id + " ]."));
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar el grupo del Jefe de prestamista Id = [ " + id + " ]."));
+        }
+    }
+
+    //obterner grupo de un prestamista
+    @GetMapping(path = "/prestamista/{id}")
+    public ResponseEntity<Response> listarGrupoPorPrestamista(@PathVariable("id") int id) {
+        try {
+            GrupoPrestamista grupoPrestamista = grupoPrestamistaService.obtenerGrupoPorIdPrestamista(id);
+            if (grupoPrestamista == null) {
+                return ResponseEntity.status(HttpStatus.OK).body(new Response("No se encontró el prestamista - Id = [ " + id + " ]."));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(grupoPrestamista, "Grupo del prestamista Id = [ " + id + " ]."));
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response("Error al listar el grupo del prestamista Id = [ " + id + " ]."));
         }
     }
 

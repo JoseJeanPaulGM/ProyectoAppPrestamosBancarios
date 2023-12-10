@@ -1,11 +1,14 @@
 package com.cibertec.prestamos.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import lombok.ToString;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,29 +56,12 @@ public class Usuario {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
 
-    @OneToMany(mappedBy = "prestatario")
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<Solicitud> solicitudes;
+    private GrupoPrestamista grupoPrestamistas;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "cliente" , fetch =  FetchType.EAGER)
     @JsonManagedReference
-    private List<GrupoPrestamista> grupoPrestamistas;
+    private List<CuentaBancaria> cuentasBancarias;
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + idUsuario +
-                ", nombre='" + persona.getNombres() + '\'' +
-                ", apellidoPaterno='" + persona.getApellidoPaterno() + '\'' +
-                ", apellidoMaterno='" + persona.getApellidoMaterno() + '\'' +
-                ", email='" + email + '\'' +
-                ", contrasena='" + contrasena + '\'' +
-                ", perfil=" + perfil +
-                ", estado=" + estado +
-                ", usuarioCreacion='" + usuarioCreacion + '\'' +
-                ", fechaCreacion=" + fechaCreacion +
-                ", usuarioModificacion='" + usuarioModificacion + '\'' +
-                ", fechaModificacion=" + fechaModificacion +
-                '}';
-    }
 }

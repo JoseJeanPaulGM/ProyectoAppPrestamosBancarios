@@ -1,27 +1,41 @@
 package com.cibertec.prestamos.service;
 
 import com.cibertec.prestamos.domain.model.CuotaPrestamo;
+import com.cibertec.prestamos.domain.repository.ICuentaBancariaRepository;
+import com.cibertec.prestamos.domain.repository.ICuotaPrestamoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class CuotaPrestamoServiceImpl implements ICuotaPrestamoService{
+@Service
+public class CuotaPrestamoServiceImpl implements ICuotaPrestamoService {
+
+    @Autowired
+    private ICuotaPrestamoRepository cuotaPrestamoRepository;
+
     @Override
     public List<CuotaPrestamo> obtenerTodasLasCuotasDePrestamo() {
-        return null;
+        return cuotaPrestamoRepository.findAll();
     }
 
     @Override
     public CuotaPrestamo obtenerCuotaDePrestamoPorId(int id) {
-        return null;
+        return cuotaPrestamoRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void guardarCuotaDePrestamo(CuotaPrestamo cuotaPrestamo) {
+    public CuotaPrestamo guardarCuotaDePrestamo(CuotaPrestamo cuotaPrestamo) {
+        return cuotaPrestamoRepository.save(cuotaPrestamo);
+    }
 
+    @Override
+    public CuotaPrestamo actualizarCuotaDePrestamo(CuotaPrestamo cuotaPrestamo) {
+        return cuotaPrestamoRepository.save(cuotaPrestamo)  ;
     }
 
     @Override
     public void eliminarCuotaDePrestamo(int id) {
-
+        cuotaPrestamoRepository.deleteById(id);
     }
 }

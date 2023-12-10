@@ -2,11 +2,13 @@ package com.cibertec.prestamos.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -29,15 +31,16 @@ public class CuotaPrestamo {
     @Column(name = "numero_cuota", nullable = false)
     private int numeroCuota;
 
-    @OneToOne
-    @JoinColumn(name = "id_pago")
-    @JsonManagedReference
-    private  Pago pago;
-
     @Column(name = "monto", precision = 10, scale = 2, nullable = false)
     private BigDecimal monto;
 
-    @Column(name = "interes", precision = 10, scale = 0, nullable = false)
+    @Column(name = "monto_pagado", precision = 10, scale = 2, nullable = false)
+    private BigDecimal montoPagado;
+
+    @Column(name = "monto_pendiente", precision = 10, scale = 2, nullable = false)
+    private BigDecimal montoPendiente;
+
+    @Column(name = "interes", precision = 10, scale = 2, nullable = false)
     private BigDecimal interes;
 
     @Column(name = "fecha_vencimiento", nullable = false)
@@ -53,5 +56,12 @@ public class CuotaPrestamo {
 
     @Column(name = "usuario_creacion")
     private String usuarioCreacion;
+
+    @Column(name = "fecha_modificacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaModificacion;
+
+    @Column(name = "usuario_modificacion")
+    private String usuarioModificacion;
 
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -47,5 +48,18 @@ public class Perfil {
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, orphanRemoval = true )
     @JsonManagedReference
     private List<PerfilModulo> perfilModulos;
+
+    @Override
+    public String toString() {
+        return "Perfil{" +
+                "idPerfil=" + idPerfil +
+                ", descripcion='" + descripcion + '\'' +
+                ", estado=" + estado +
+                ", usuarioCreacion='" + usuarioCreacion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", usuarioModificacion='" + usuarioModificacion + '\'' +
+                ", fechaModificacion=" + fechaModificacion +
+                '}';
+    }
 
 }

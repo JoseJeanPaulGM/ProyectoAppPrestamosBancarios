@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -47,4 +48,18 @@ public class PerfilModulo {
 
     @Column(name = "fecha_modificacion")
     private Date fechaModificacion;
+
+    @Override
+    public String toString() {
+        return "PerfilModulo{" +
+                "idPerfilModulo=" + idPerfilModulo +
+                ", perfil=" + perfil +
+                ", modulo=" + modulo +
+                ", estado=" + estado +
+                ", usuarioCreacion='" + usuarioCreacion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", usuarioModificacion='" + usuarioModificacion + '\'' +
+                ", fechaModificacion=" + fechaModificacion +
+                '}';
+    }
 }

@@ -14,5 +14,7 @@ public class ClienteRequestDto {
     public String contrasena;
     public int idPerfil;
     public int estado;
+    public String numeroCuenta;
+    public String banco;
     public String usuarioCreacion;
 }

@@ -2,11 +2,18 @@ package com.cibertec.prestamos.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "pago")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +24,9 @@ public class Pago {
     @JoinColumn(name = "id_tipo_comprobante")
     @JsonManagedReference
     private TipoComprobante tipoComprobante;
+
+    @Column(name = "id_cutota_prestamo")
+    private int idCuotaPrestamo;
 
     @Column(name = "monto", precision = 10, scale = 2, nullable = false)
     private BigDecimal monto;

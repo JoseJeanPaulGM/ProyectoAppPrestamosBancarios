@@ -25,4 +25,10 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query("SELECT u FROM Usuario u WHERE u.usuarioCreacion = :usuarioCreacion")
     public abstract List<Usuario> findAllByUsuarioCreacion(String usuarioCreacion);
 
+    @Query("SELECT u FROM Usuario u WHERE u.persona.idPersona = :idPersona")
+    public abstract Optional<Usuario> findByIdPersona(int idPersona);
+
+    public abstract void deleteByIdUsuario(int idUsuario);
+
+
 }

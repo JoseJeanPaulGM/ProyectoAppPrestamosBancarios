@@ -1,6 +1,7 @@
 package com.cibertec.prestamos.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,12 +26,23 @@ public class GrupoPrestamista {
     @ManyToOne
     @JoinColumn(name = "id_grupo")
     @JsonBackReference
-    private Grupo grupo;
+    private Grupo idGrupo;
 
-    @ManyToOne
+    @JsonProperty("idGrupo")
+    public int getGrupoId() {
+       return idGrupo != null ? idGrupo.getIdGrupo() : 0;
+    }
+
+
+    @OneToOne
     @JoinColumn(name = "id_prestamista")
     @JsonBackReference
     private Usuario usuario;
+
+    @JsonProperty("idPrestamista")
+    public int getUsuarioId() {
+       return usuario != null ? usuario.getIdUsuario() : 0;
+    }
 
 
     @Column(name = "estado", nullable = false)
@@ -49,5 +61,19 @@ public class GrupoPrestamista {
     @Column(name = "fecha_modificacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaModificacion;
+
+    @Override
+    public String toString() {
+        return "GrupoPrestamista{" +
+                "idGrupoPrestamista=" + idGrupoPrestamista +
+                ", grupo=" + idGrupo +
+                ", usuario=" + usuario +
+                ", estado=" + estado +
+                ", usuarioCreacion='" + usuarioCreacion + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", usuarioModificacion='" + usuarioModificacion + '\'' +
+                ", fechaModificacion=" + fechaModificacion +
+                '}';
+    }
 
 }

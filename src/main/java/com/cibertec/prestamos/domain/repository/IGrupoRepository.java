@@ -11,5 +11,6 @@ public interface IGrupoRepository extends JpaRepository<Grupo, Integer> {
     // Puedes agregar métodos personalizados aquí si es necesario
     @Query(value = "SELECT g FROM Grupo g WHERE g.idJefePrestamista = :idJefePrestamista")
     public abstract Optional<Grupo> findByIdJefePrestamista(int idJefePrestamista);
+
 }
 
