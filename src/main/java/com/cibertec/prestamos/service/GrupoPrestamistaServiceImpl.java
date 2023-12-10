@@ -1,6 +1,5 @@
 package com.cibertec.prestamos.service;
 
-import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.domain.model.GrupoPrestamista;
 import com.cibertec.prestamos.domain.repository.IGrupoPrestamistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

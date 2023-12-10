@@ -1,7 +1,6 @@
 package com.cibertec.prestamos.service;
 
 import com.cibertec.prestamos.domain.model.CuotaPrestamo;
-import com.cibertec.prestamos.domain.repository.ICuentaBancariaRepository;
 import com.cibertec.prestamos.domain.repository.ICuotaPrestamoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

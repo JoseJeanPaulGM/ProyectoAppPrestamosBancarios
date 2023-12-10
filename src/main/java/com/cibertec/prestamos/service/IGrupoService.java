@@ -1,7 +1,6 @@
 package com.cibertec.prestamos.service;
 
 import com.cibertec.prestamos.domain.model.Grupo;
-import com.cibertec.prestamos.domain.repository.IGrupoRepository;
 
 import java.util.List;
 import java.util.Optional;
