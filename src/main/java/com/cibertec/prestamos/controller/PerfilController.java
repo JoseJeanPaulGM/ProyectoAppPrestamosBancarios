@@ -27,6 +27,7 @@ public class PerfilController {
     private IPerfilService perfilService;
     private Logger log = LoggerFactory.getLogger(PerfilController.class);
 
+    // Obtener la lista de perfiles
     @GetMapping(path = "/listar")
     public ResponseEntity<Response> listar() {
         try {
@@ -47,6 +48,7 @@ public class PerfilController {
         }
     }
 
+    // Registro de perfiles
     @PostMapping(path = "/registrar")
     public ResponseEntity<Response> registrar(@RequestBody PerfilDto perfil) {
         try {
