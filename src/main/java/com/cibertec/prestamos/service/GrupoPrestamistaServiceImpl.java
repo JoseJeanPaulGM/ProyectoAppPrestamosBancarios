@@ -1,6 +1,5 @@
 package com.cibertec.prestamos.service;
 
-import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.domain.model.GrupoPrestamista;
 import com.cibertec.prestamos.domain.repository.IGrupoPrestamistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GrupoPrestamistaServiceImpl  implements  IGrupoPrestamistaService{
+public class GrupoPrestamistaServiceImpl implements IGrupoPrestamistaService {
 
     @Autowired
     private IGrupoPrestamistaRepository grupoPrestamistaRepository;
-
 
     @Override
     public List<GrupoPrestamista> obtenerTodosLosGruposDePrestamista() {

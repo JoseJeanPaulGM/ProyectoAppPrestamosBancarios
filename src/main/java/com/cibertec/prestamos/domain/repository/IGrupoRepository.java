@@ -1,7 +1,6 @@
 package com.cibertec.prestamos.domain.repository;
 
 import com.cibertec.prestamos.domain.model.Grupo;
-import com.cibertec.prestamos.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,4 +12,3 @@ public interface IGrupoRepository extends JpaRepository<Grupo, Integer> {
     public abstract Optional<Grupo> findByIdJefePrestamista(int idJefePrestamista);
 
 }
-

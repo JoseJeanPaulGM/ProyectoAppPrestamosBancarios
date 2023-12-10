@@ -1,6 +1,5 @@
 package com.cibertec.prestamos.domain.repository;
 
-import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.domain.model.GrupoPrestamista;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,9 +14,9 @@ public interface IGrupoPrestamistaRepository extends JpaRepository<GrupoPrestami
     @Query("SELECT gp FROM GrupoPrestamista gp WHERE gp.usuario.idUsuario = :idPrestamista")
     public abstract GrupoPrestamista findByIdPrestamista(int idPrestamista);
 
-    //Obetner por usuario_creacion
+    // Obetner por usuario_creacion
     @Query("SELECT gp FROM GrupoPrestamista gp WHERE gp.usuarioCreacion = :usuarioCreacion")
-    public abstract List<GrupoPrestamista> findPrestamistasByUsuarioCreacion(@Param("usuarioCreacion") String usuarioCreacion);
-
+    public abstract List<GrupoPrestamista> findPrestamistasByUsuarioCreacion(
+            @Param("usuarioCreacion") String usuarioCreacion);
 
 }

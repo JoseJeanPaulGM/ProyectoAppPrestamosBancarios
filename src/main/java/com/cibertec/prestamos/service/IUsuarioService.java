@@ -1,12 +1,10 @@
 package com.cibertec.prestamos.service;
 
-import com.cibertec.prestamos.domain.model.Grupo;
 import com.cibertec.prestamos.domain.model.Perfil;
 import com.cibertec.prestamos.domain.model.Usuario;
 
 import java.util.List;
 import java.util.Optional;
-
 
 public interface IUsuarioService {
     List<Usuario> obtenerTodosLosUsuarios();
