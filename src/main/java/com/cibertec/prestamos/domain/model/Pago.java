@@ -1,5 +1,6 @@
 package com.cibertec.prestamos.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,8 +26,11 @@ public class Pago {
     @JsonManagedReference
     private TipoComprobante tipoComprobante;
 
-    @Column(name = "id_cutota_prestamo")
-    private int idCuotaPrestamo;
+    @ManyToOne
+    @JoinColumn(name = "id_cutota_prestamo")
+    @JsonBackReference
+    private CuotaPrestamo cuota;
+
 
     @Column(name = "monto", precision = 10, scale = 2, nullable = false)
     private BigDecimal monto;

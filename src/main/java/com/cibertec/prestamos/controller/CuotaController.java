@@ -72,11 +72,13 @@ public class CuotaController {
 
             //Registrar Pago
             Pago newPago = new Pago();
-            newPago.setIdCuotaPrestamo(updateCuota.getIdCuotaPrestamo());
+            newPago.setCuota(updateCuota);
             newPago.setMonto(cuotaPrestamo.getMontoPagado());
             newPago.setEstado(cuotaPrestamo.getEstado()-1 );
             newPago.setFechaRegistro(java.sql.Date.valueOf(java.time.LocalDate.now()));
             newPago.setUsuarioRegistro(cuotaPrestamo.getUsuarioModificacion());
+
+
 
             //Tipo Comprobante
             TipoComprobante tipoComprobante = new TipoComprobante();

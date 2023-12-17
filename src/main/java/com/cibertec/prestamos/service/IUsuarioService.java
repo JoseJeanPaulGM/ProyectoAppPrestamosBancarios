@@ -25,4 +25,7 @@ public interface IUsuarioService {
 
     void eliminarUsuario(Usuario usuario);
 
+    //Obtener Usuarios por Perfil
+    List<Usuario> obtenerUsuariosPorIdPerfil(int idPerfil);
+
 }

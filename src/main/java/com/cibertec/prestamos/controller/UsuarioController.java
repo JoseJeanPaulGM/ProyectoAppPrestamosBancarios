@@ -523,4 +523,20 @@ public class UsuarioController {
                     new Response("Error al listar los prestamistas del Jefe de prestamista Id = [ " + id + " ]."));
         }
     }
+
+    //Obtener listado de usuarios por perfil
+    @GetMapping(path = "/perfil/{id}")
+    public ResponseEntity<Response> listarUsuariosPorPerfil(@PathVariable("id") int id) {
+        try {
+            List<Usuario> listUsuario = usuarioService.obtenerUsuariosPorIdPerfil(id);
+
+            return ResponseEntity.status(HttpStatus.OK).body(new Response(listUsuario,
+                    "Lista de usuarios del perfil Id = [ " + id + " ]."));
+        } catch (Exception e) {
+            log.info("Error: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    new Response("Error al listar los usuarios del perfil Id = [ " + id + " ]."));
+        }
+    }
+
 }

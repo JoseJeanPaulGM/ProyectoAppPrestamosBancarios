@@ -24,4 +24,8 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     public abstract void deleteByIdUsuario(int idUsuario);
 
+    //Obtener Usuarios por Perfil
+    @Query("SELECT u FROM Usuario u WHERE u.perfil.idPerfil = :idPerfil and u.estado = 1")
+    public abstract List<Usuario> findAllUsersByIdPerfil(int idPerfil);
+
 }

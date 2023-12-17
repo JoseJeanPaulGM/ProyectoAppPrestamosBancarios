@@ -59,4 +59,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public void eliminarUsuario(Usuario usuario) {
         usuarioRepository.delete(usuario);
     }
+
+    @Override
+    public List<Usuario> obtenerUsuariosPorIdPerfil(int idPerfil) {
+        return usuarioRepository.findAllUsersByIdPerfil(idPerfil);
+    }
 }

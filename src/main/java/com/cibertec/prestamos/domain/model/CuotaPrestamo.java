@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cuota_prestamo")
@@ -63,5 +64,9 @@ public class CuotaPrestamo {
 
     @Column(name = "usuario_modificacion")
     private String usuarioModificacion;
+
+    @OneToMany(mappedBy = "cuota" , fetch =  FetchType.LAZY)
+    @JsonManagedReference
+    private List<Pago> pagos;
 
 }
